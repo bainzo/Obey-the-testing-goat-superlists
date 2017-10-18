@@ -27,7 +27,7 @@ eg, on Ubuntu:
 
 ## Folder structure:
 Assume we have a user account at /home/{USER}
-
+~~~
 /home/{USER}
 └── sites
     └── {SITENAME}
@@ -35,4 +35,4 @@ Assume we have a user account at /home/{USER}
         ├── source
         ├── static
         └── virtualenv
-
+~~~
