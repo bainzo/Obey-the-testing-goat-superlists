@@ -1,0 +1,12 @@
+[Unit]
+Description=Gunicorn server for {SITENAME}
+
+[Service]
+Restart=on-failure
+User={USER}
+WorkingDirecotry=/home/{USER}/sites/{SITENAME}/source
+ExecStart=/home/{USER}/sites/{SITENAME}/virtualenv/gunicorn \
+    --bind unix:/tmp/{SITENAME}.socket
+
+[Install]
+WantedBy=multiuser.target
