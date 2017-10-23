@@ -23,17 +23,6 @@ class ItemModelTest(TestCase):
             item.save()
             item.full_clean()
 
-    def test_string_representation(self):
-        item = Item(text='some text')
-        self.assertEqual(str(item), 'some text')
-
-
-class ListModelTest(TestCase):
-
-    def test_get_absolute_url(self):
-        list_ = List.objects.create()
-        self.assertEqual(list_.get_absolute_url(), f'/lists/{list_.id}/')
-
     def test_duplicate_items_are_invalid(self):
         list_ = List.objects.create()
         Item.objects.create(list=list_, text='bla')
@@ -57,3 +46,14 @@ class ListModelTest(TestCase):
             list(Item.objects.all()),
             [item1, item2, item3]
         )
+
+    def test_string_representation(self):
+        item = Item(text='some text')
+        self.assertEqual(str(item), 'some text')
+
+
+class ListModelTest(TestCase):
+
+    def test_get_absolute_url(self):
+        list_ = List.objects.create()
+        self.assertEqual(list_.get_absolute_url(), f'/lists/{list_.id}/')
