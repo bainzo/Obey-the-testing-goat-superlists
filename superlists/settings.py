@@ -124,8 +124,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
+
+# Outgoing email settings
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # Print debug logging messages to console
 LOGGING = {
@@ -144,4 +151,3 @@ LOGGING = {
     },
     'root': {'level': 'INFO'},
 }
-STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
