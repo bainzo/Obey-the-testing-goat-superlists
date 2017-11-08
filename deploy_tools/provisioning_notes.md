@@ -24,6 +24,9 @@ eg, on Ubuntu:
 * See gunicorn-systemd.template.service
 * Replace {SITENAME} with, e.g., staging.example.com
 * Replace {USER} with your user on the server.
+* Replace {EMAIL_HOST} with your SMTP host.
+* Replace {EMAIL_USER} with your SMTP username.
+* Replace {EMAIL_PASSWORD} with your SMTP password.
 
 ## Folder structure:
 Assume we have a user account at /home/{USER}
