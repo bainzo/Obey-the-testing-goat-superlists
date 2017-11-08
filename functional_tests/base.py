@@ -1,4 +1,5 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from .server_tools import reset_database
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 import time
@@ -29,6 +30,9 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.staging_server = os.environ.get('STAGING_SERVER')
         if self.staging_server:
             self.live_server_url = 'http://' + self.staging_server
+            self.staging_server_user = os.environ.get('STAGING_SERVER_USER')
+            reset_database(self.staging_server, self.staging_server_user)
+            # Needed for tests that check emails are sent:
             self.pop3_host = os.environ.get('TEST_POP3_HOST')
             self.pop3_email = os.environ.get('TEST_POP3_EMAIL')
             self.pop3_password = os.environ.get('TEST_POP3_PASSWORD')
