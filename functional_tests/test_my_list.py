@@ -58,7 +58,7 @@ class MyListsTest(FunctionalTest):
         )
         self.browser.find_element_by_link_text('Reticulate splines').click()
         self.wait_for(
-            lambda: self.asserEqual(self.browser.current_url, first_list_url)
+            lambda: self.assertEqual(self.browser.current_url, first_list_url)
         )
 
         # She decides to start another list, just to see
@@ -69,7 +69,7 @@ class MyListsTest(FunctionalTest):
         # Under "my lists", her new list appears
         self.browser.find_element_by_link_text('My lists').click()
         self.wait_for(
-            lambda: self.find_element_by_link_text('Click cows')
+            lambda: self.browser.find_element_by_link_text('Click cows')
         )
         self.browser.find_element_by_link_text('Click cows').click()
         self.wait_for(
