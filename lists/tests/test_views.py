@@ -10,7 +10,7 @@ from lists.forms import (
     ExistingListItemForm, ItemForm,
 )
 
-from unittest.mock import patch
+import unittest
 
 class HomePageTest(TestCase):
 
@@ -121,7 +121,7 @@ class ListViewTest(TestCase):
         self.assertEqual(Item.objects.all().count(), 1)
 
 
-class NewListTest(TestCase):
+class NewListViewIntegratedTest(TestCase):
 
     def test_can_save_a_POST_request(self):
         response = self.client.post(
@@ -156,6 +156,14 @@ class NewListTest(TestCase):
         self.assertEqual(List.objects.count(), 0)
         self.assertEqual(Item.objects.count(), 0)
 
+    @unittest.skip
+    def test_list_owner_is_saved_if_user_is_authenticated(self):
+        user = User.objects.create(email='a@b.com')
+        self.client.force_login(user)
+        self.client.post('/lists/new', data={'text': 'new item'})
+        list_ = List.objects.first()
+        self.assertEqual(list_.owner, user)
+
 
 class MyListsTest(TestCase):
 
@@ -169,22 +177,3 @@ class MyListsTest(TestCase):
         correct_user = User.objects.create(email='a@b.com')
         response = self.client.get('/lists/users/a@b.com/')
         self.assertEqual(response.context['owner'], correct_user)
-
-    @patch('lists.views.List')
-    @patch('lists.views.ItemForm')
-    def test_list_owner_is_saved_if_user_is_authenticated(
-        self, MockItemForm, MockList
-    ):
-        user = User.objects.create(email='a@b.com')
-        self.client.force_login(user)
-        mock_list = MockList.return_value
-
-        def check_owner_assigned():
-            self.assertEqual(mock_list.owner, user)
-        mock_list.save.side_effect = check_owner_assigned
-
-        self.client.post('/lists/new', data={'text': 'new item'})
-
-        self.assertEqual(mock_list.owner, user)
-
-        mock_list.save.assert_called_once_with()
