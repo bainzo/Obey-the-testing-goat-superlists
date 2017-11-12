@@ -152,7 +152,7 @@ class NewListViewUnitTest(unittest.TestCase):
         response = new_list2(self.request)
 
         self.assertEqual(response, mock_redirect.return_value)
-        mock_form.save.assert_called_once_with(owner=self.request.user)
+        mock_redirect.assert_called_once_with(mock_form.save.return_value)
 
     @patch('lists.views.render')
     def test_renders_home_template_with_form_if_form_invalid(
