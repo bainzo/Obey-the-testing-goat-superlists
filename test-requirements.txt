@@ -1,3 +1,5 @@
 # Required to run functional_tests
 Fabric3==1.13.1.post1
 selenium==3.6.0
+# Required for BDD
+behave-django==1.0.0
